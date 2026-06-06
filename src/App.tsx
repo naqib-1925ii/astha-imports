@@ -900,7 +900,7 @@ useEffect(() => {
             </div>
             <span className="text-white font-bold text-lg">Astha Imports</span>
           </div>
-          <p className="text-sm mb-2">আস্থার সাথে কিনুন, আস্থার সাথে পান।</p>
+          <p className="text-sm mb-2">আস্থার সাথে কিনুন, নিশ্চিন্তে থাকুন।</p>
           <div className="flex items-center justify-center gap-4 text-xs mb-4">
             <span>ক্যাশ অন ডেলিভারি</span>
             <span>•</span>
