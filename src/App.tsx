@@ -836,7 +836,7 @@ useEffect(() => {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">যোগাযোগ করুন</h2>
             <p className="text-gray-500">যেকোনো প্রশ্ন বা সাহায্যের জন্য আমাদের সাথে যোগাযোগ করুন।</p>
           </div>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <a
               href="https://wa.me/8801967838738"
               target="_blank"
