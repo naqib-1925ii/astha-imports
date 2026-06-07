@@ -552,6 +552,44 @@ export default function App() {
         </div>
       </section>
 
+      {/* Why Buy From Us */}
+      <section className="py-16 bg-gradient-to-br from-red-600 to-red-700 text-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">কেন আমাদের কাছ থেকে কিনবেন?</h2>
+            <p className="text-red-100 max-w-xl mx-auto">আমরা শুধু পণ্য বিক্রি করি না, আমরা আপনার সন্তুষ্টি নিশ্চিত করি।</p>
+          </div>
+          <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur rounded-3xl p-8 sm:p-10 border border-white/20 shadow-xl">
+            <ul className="space-y-4 text-left text-white">
+              <li className="flex items-start gap-3">
+                <span className="mt-1 text-2xl">✅</span>
+                <span className="leading-relaxed">আমরা কোনো কপি বা নিম্নমানের পণ্য বিক্রি করি না।</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 text-2xl">✅</span>
+                <span className="leading-relaxed">আমাদের প্রতিটি ফ্যানে রয়েছে আসল 3600mAh ব্যাটারি ও শক্তিশালী Turbo Motor।</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 text-2xl">✅</span>
+                <span className="leading-relaxed">100% Original Quality নিশ্চিত করে পণ্য আপনার হাতে পৌঁছে দেওয়া হয়।</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 text-2xl">✅</span>
+                <span className="leading-relaxed">বর্তমানে বাজারে 600mAh, 1200mAh বা 1800mAh ব্যাটারির অনেক নিম্নমানের কপি পণ্য পাওয়া যায়, যেগুলোর কুলিং পারফরম্যান্স ও ব্যাটারি ব্যাকআপ খুবই সীমিত।</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 text-2xl">✅</span>
+                <span className="leading-relaxed">পণ্যের ছবিতেই Original এবং Copy Version-এর পার্থক্য স্পষ্টভাবে দেখানো হয়েছে, যাতে আপনি সহজেই সঠিক পণ্যটি নির্বাচন করতে পারেন।</span>
+              </li>
+            </ul>
+            <div className="mt-8 rounded-3xl bg-white/10 border border-red-300/40 p-6">
+              <p className="text-lg font-semibold text-red-100">⚠️ নকল থেকে সাবধান! প্লাস্টিকের জালি ও নিম্নমানের কপি পণ্য কিনে প্রতারিত হবেন না।</p>
+              <p className="mt-4 text-white font-semibold">💪 অরিজিনাল স্টীলের জালি, উন্নত মানের ব্যাটারি এবং শক্তিশালী পারফরম্যান্সের জন্য আমাদের Original Turbo Fan বেছে নিন।</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Important Notes Section */}
       <section className="py-16 bg-amber-50 border-t border-amber-200">
         <div className="max-w-s mx-auto px-4">
@@ -673,44 +711,6 @@ export default function App() {
                 onQuantityChange={setQuantity}
                 handleSubmit={handleSubmit}
               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Buy From Us */}
-      <section className="py-16 bg-gradient-to-br from-red-600 to-red-700 text-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">কেন আমাদের কাছ থেকে কিনবেন?</h2>
-            <p className="text-red-100 max-w-xl mx-auto">আমরা শুধু পণ্য বিক্রি করি না, আমরা আপনার সন্তুষ্টি নিশ্চিত করি।</p>
-          </div>
-          <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur rounded-3xl p-8 sm:p-10 border border-white/20 shadow-xl">
-            <ul className="space-y-4 text-left text-white">
-              <li className="flex items-start gap-3">
-                <span className="mt-1 text-2xl">✅</span>
-                <span className="leading-relaxed">আমরা কোনো কপি বা নিম্নমানের পণ্য বিক্রি করি না।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 text-2xl">✅</span>
-                <span className="leading-relaxed">আমাদের প্রতিটি ফ্যানে রয়েছে আসল 3600mAh ব্যাটারি ও শক্তিশালী Turbo Motor।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 text-2xl">✅</span>
-                <span className="leading-relaxed">100% Original Quality নিশ্চিত করে পণ্য আপনার হাতে পৌঁছে দেওয়া হয়।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 text-2xl">✅</span>
-                <span className="leading-relaxed">বর্তমানে বাজারে 600mAh, 1200mAh বা 1800mAh ব্যাটারির অনেক নিম্নমানের কপি পণ্য পাওয়া যায়, যেগুলোর কুলিং পারফরম্যান্স ও ব্যাটারি ব্যাকআপ খুবই সীমিত।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 text-2xl">✅</span>
-                <span className="leading-relaxed">পণ্যের ছবিতেই Original এবং Copy Version-এর পার্থক্য স্পষ্টভাবে দেখানো হয়েছে, যাতে আপনি সহজেই সঠিক পণ্যটি নির্বাচন করতে পারেন।</span>
-              </li>
-            </ul>
-            <div className="mt-8 rounded-3xl bg-white/10 border border-red-300/40 p-6">
-              <p className="text-lg font-semibold text-red-100">⚠️ নকল থেকে সাবধান! প্লাস্টিকের জালি ও নিম্নমানের কপি পণ্য কিনে প্রতারিত হবেন না।</p>
-              <p className="mt-4 text-white font-semibold">💪 অরিজিনাল স্টীলের জালি, উন্নত মানের ব্যাটারি এবং শক্তিশালী পারফরম্যান্সের জন্য আমাদের Original Turbo Fan বেছে নিন।</p>
             </div>
           </div>
         </div>
