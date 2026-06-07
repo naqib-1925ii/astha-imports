@@ -258,12 +258,6 @@ const OrderForm = ({
 );
 
 export default function App() {
-  
-useEffect(() => {
-  if (typeof window.fbq !== 'undefined') {
-    window.fbq('track', 'ViewContent');
-  }
-}, []);
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -317,16 +311,12 @@ useEffect(() => {
   const totalPrice = (PRODUCT_PRICE * quantity) + deliveryCharge;
 
   useEffect(() => {
-    window.fbq?.('track', 'ViewContent');
-    const handleScroll = () => {
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+   window.fbq?.('track', 'ViewContent');
   }, []);
 
   const scrollToOrder = () => {
     orderFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.fbq?.('track', 'Lead');
+    window.fbq?.('track', 'InitiateCheckout');
     setMobileMenuOpen(false);
   };
 
@@ -334,7 +324,6 @@ useEffect(() => {
     e.preventDefault();
     setSubmitting(true);
     setSubmitError('');
-    window.fbq?.('track', 'Lead');
 
     // Prevent submit if phone validation failed
     if (phoneError) {
@@ -368,7 +357,6 @@ useEffect(() => {
   );
 
   window.fbq?.('track', 'Lead');
-
   setSubmitted(true);
 
 } catch {
@@ -534,10 +522,7 @@ useEffect(() => {
       {/* Features Section */}
       <section id="features" className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">পণ্যের বৈশিষ্ট্য</h2>
-            <p className="text-gray-500 max-w-xxl mx-auto">গরমে বাইরে বের হওয়া, অফিসে কাজ করা কিংবা লোডশেডিংয়ের সময় আর কষ্ট নয়। শক্তিশালী Turbo Airflow এবং 3600mAh রিচার্জেবল ব্যাটারিসহ এই Portable Turbo Mini Fan আপনাকে দেবে যেকোনো সময়, যেকোনো স্থানে আরামদায়ক ঠাণ্ডা বাতাস।</p>
-          </div>
+         
           <div className="grid md:grid-cols-1 gap-3">
             <div className="bg-gray-50 rounded-2xl p-6 space-y-4 border border-gray-200">
                   <h3 className="text-xl font-bold text-gray-900">✨ প্রধান বৈশিষ্ট্যসমূহ</h3>
@@ -554,16 +539,6 @@ useEffect(() => {
                   </ul>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-6 space-y-4 border border-gray-200">
-                  <h3 className="text-xl font-bold text-gray-900">🌍 কোথায় ব্যবহার করবেন?</h3>
-                  <ul className="list-disc list-inside space-y-2">
-                    <li>ভ্রমণ ও ট্যুরে</li>
-                    <li>অফিস ও স্টাডিতে</li>
-                    <li>বাশা ও রান্নাঘরে</li>
-                    <li>আউটডোর অ্যাক্টিভিটিতে</li>
-                    <li>লোডশেডিংয়ের সময়</li>
-                  </ul>
-                </div>
                 <div className="bg-gray-50 rounded-2xl p-6 space-y-4 border border-gray-200">
                   <h3 className="text-xl font-bold text-gray-900">📦 প্যাকেজে যা থাকছে</h3>
                   <ul className="list-disc list-inside space-y-2">
