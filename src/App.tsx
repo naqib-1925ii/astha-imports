@@ -67,7 +67,7 @@ const getDeliveryCharge = (city: string, quantity: number): number => {
   if (quantity >= 1 && quantity <= 3) {
     return isChittagong ? 80 : 150;
   } else if (quantity >= 4) {
-    return isChittagong ? 90 : 170;
+    return isChittagong ? 60 : 120;
   }
   return 0;
 };
@@ -667,7 +667,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center justify-between bg-white rounded-lg p-4">
                   <span className="text-gray-700">৪+ পণ্য</span>
-                  <span className="font-bold text-blue-600 text-lg">৳৯০</span>
+                  <span className="font-bold text-blue-600 text-lg">৳৬০</span>
                 </div>
               </div>
             </div>
@@ -685,7 +685,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center justify-between bg-white rounded-lg p-4">
                   <span className="text-gray-700">৪+ পণ্য</span>
-                  <span className="font-bold text-orange-600 text-lg">৳১৭০</span>
+                  <span className="font-bold text-orange-600 text-lg">৳১২০</span>
                 </div>
               </div>
             </div>
