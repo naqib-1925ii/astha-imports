@@ -11,13 +11,20 @@ import why2 from './assets/why2.png';
 import {
   Star, CheckCircle, ShieldCheck, Truck, RotateCcw, Phone, MapPin,
   MessageCircle, Facebook, ChevronDown, ChevronUp, Package, Instagram,
-  Clock, X, Menu
+  Clock, X, Menu,
 } from 'lucide-react';
 
 declare global {
   interface Window {
     fbq: any;
   }
+}
+
+function getCookie(name: string): string | null {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
+  return null;
 }
 
 export {};
@@ -343,6 +350,10 @@ export default function App() {
       city: formData.city,
       address: formData.address,
       quantity: String(quantity),
+      total_price: totalPrice,
+      fbc: getCookie('fbc'),
+      fbp: getCookie('fbp'),
+      user_agent: navigator.userAgent,
     };
 
     try {
