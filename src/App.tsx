@@ -351,8 +351,8 @@ export default function App() {
       address: formData.address,
       quantity: String(quantity),
       total_price: totalPrice,
-      fbc: getCookie('fbc'),
-      fbp: getCookie('fbp'),
+      fbc: getCookie('_fbc'),
+      fbp: getCookie('_fbp'),
       user_agent: navigator.userAgent,
     };
 
@@ -367,7 +367,11 @@ export default function App() {
     }
   );
 
-  window.fbq?.('track', 'Lead');
+  window.fbq?.('track', 'Lead', {
+  value: totalPrice,
+  currency: 'BDT'
+  });
+  
   setSubmitted(true);
 
 } catch {
