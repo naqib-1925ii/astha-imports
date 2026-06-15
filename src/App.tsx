@@ -344,32 +344,36 @@ export default function App() {
       return;
     }
 
-    const payload = {
-      name: formData.name,
-      phone: formData.phone,
-      city: formData.city,
-      address: formData.address,
-      quantity: String(quantity),
-      total_price: totalPrice,
-      fbc: getCookie('_fbc'),
-      fbp: getCookie('_fbp'),
-      user_agent: navigator.userAgent,
-    };
+    const eventId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    try {
-  await fetch(
-    'https://script.google.com/macros/s/AKfycbzv9MJswOCkemV_NT9UxlYFoOWzD0ia0-CzdZVWqUt1dM3Bl11X_FjSTKd4OuiY_t8g/exec',
-    {
+    const payload = {
+     name: formData.name,
+     phone: formData.phone,
+     city: formData.city,
+     address: formData.address,
+     quantity: String(quantity),
+     total_price: totalPrice,
+     fbc: getCookie('_fbc'),
+     fbp: getCookie('_fbp'),
+     user_agent: navigator.userAgent,
+     event_id: eventId,
+     };
+    
+    
+     try {await fetch('https://script.google.com/macros/s/AKfycbzv9MJswOCkemV_NT9UxlYFoOWzD0ia0-CzdZVWqUt1dM3Bl11X_FjSTKd4OuiY_t8g/exec',
+     {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    }
-  );
+     }
+    );
 
   window.fbq?.('track', 'Lead', {
   value: totalPrice,
   currency: 'BDT'
+  }, {
+  eventID: eventId
   });
   
   setSubmitted(true);
