@@ -103,6 +103,9 @@ type OrderFormProps = {
   onFieldChange: (field: keyof FormData, value: string) => void;
   onQuantityChange: (newQty: number) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  showConfirmModal: boolean;
+  setShowConfirmModal: (val: boolean) => void;
+  onConfirmOrder: () => void;
 };
 
 const OrderForm = ({
@@ -118,6 +121,9 @@ const OrderForm = ({
   onFieldChange,
   onQuantityChange,
   handleSubmit,
+  showConfirmModal,
+  setShowConfirmModal,
+  onConfirmOrder,
 }: OrderFormProps) => (
   <div className={compact ? '' : 'bg-white rounded-2xl shadow-2xl p-6 md:p-8 border border-gray-100'}>
     {!compact && (
@@ -241,8 +247,14 @@ const OrderForm = ({
         )}
 
         <button
-          type="submit"
+          type="button"
           disabled={submitting}
+          onClick={() => {
+            if (phoneError) return;
+            if (!formData.phone || formData.phone.length !== 11 || !formData.phone.startsWith('01')) return;
+            if (!formData.name || !formData.city || !formData.address) return;
+            setShowConfirmModal(true);
+          }}
           className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition-all duration-200 text-lg shadow-lg hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {submitting ? (
@@ -261,6 +273,45 @@ const OrderForm = ({
         </div>
       </form>
     )}
+{/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+            <div className="text-center mb-4">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Package className="w-8 h-8 text-amber-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">অর্ডার কনফার্ম করুন</h3>
+              <p className="text-gray-600 text-sm mb-1">আপনি কি নিশ্চিতভাবে এই পণ্যটি অর্ডার করতে চান?</p>
+              <div className="bg-blue-50 rounded-xl p-3 mt-3 text-left space-y-1">
+                <p className="text-xs text-gray-600">👤 {formData.name}</p>
+                <p className="text-xs text-gray-600">📞 {formData.phone}</p>
+                <p className="text-xs text-gray-600">📍 {formData.city}</p>
+                <p className="text-xs text-gray-600">🏠 {formData.address}</p>
+                <p className="text-xs text-gray-600 font-bold">💰 মোট: ৳{totalPrice}</p>
+              </div>
+              <p className="text-xs text-red-500 mt-3 font-semibold">⚠️ ফেক অর্ডার দিলে আপনার নম্বর ব্লক করা হবে</p>
+            </div>
+            <button
+              onClick={onConfirmOrder}
+              disabled={submitting}
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition mb-2 flex items-center justify-center gap-2"
+            >
+              {submitting ? (
+                <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>✅ হ্যাঁ, কনফার্ম করি</>
+              )}
+            </button>
+            <button
+              onClick={() => setShowConfirmModal(false)}
+              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-3 rounded-xl transition text-sm"
+            >
+              ❌ না, ফিরে যাই
+            </button>
+          </div>
+        </div>
+      )}
   </div>
 );
 
@@ -275,6 +326,7 @@ export default function App() {
   const [phoneError, setPhoneError] = useState('');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const orderFormRef = useRef<HTMLDivElement>(null);
 
   const handleFieldChange = (field: keyof FormData, value: string) => {
@@ -329,60 +381,55 @@ export default function App() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const handleDirectSubmit = async () => {
     setSubmitting(true);
     setSubmitError('');
-
-    // Prevent submit if phone validation failed
-    if (phoneError) {
-      setSubmitError('ফোন নম্বর সঠিক নয় — অনুগ্রহ করে ঠিক করুন।');
-      setSubmitting(false);
-      return;
-    }
-    if (!formData.phone || formData.phone.length !== 11 || !formData.phone.startsWith('01')) {
-      setSubmitError('ফোন নম্বর ১১ সংখ্যার ও বাংলাদেশের মোবাইল নম্বর হওয়া উচিত।');
-      setSubmitting(false);
-      return;
-    }
 
     const eventId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
     const payload = {
-     name: formData.name,
-     phone: formData.phone,
-     city: formData.city,
-     address: formData.address,
-     quantity: String(quantity),
-     total_price: totalPrice,
-     fbc: getCookie('_fbc'),
-     fbp: getCookie('_fbp'),
-     user_agent: navigator.userAgent,
-     event_id: eventId,
-     };
-    
-    
-     try {await fetch('https://script.google.com/macros/s/AKfycbzv9MJswOCkemV_NT9UxlYFoOWzD0ia0-CzdZVWqUt1dM3Bl11X_FjSTKd4OuiY_t8g/exec',
-     {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-     }
-    );
+      name: formData.name,
+      phone: formData.phone,
+      city: formData.city,
+      address: formData.address,
+      quantity: String(quantity),
+      total_price: totalPrice,
+      fbc: getCookie('_fbc'),
+      fbp: getCookie('_fbp'),
+      user_agent: navigator.userAgent,
+      event_id: eventId,
+    };
 
-  window.fbq?.('track', 'Lead', {
-  value: totalPrice,
-  currency: 'BDT'
-  }, {
-  eventID: eventId
-  });
-  
-  setSubmitted(true);
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbzv9MJswOCkemV_NT9UxlYFoOWzD0ia0-CzdZVWqUt1dM3Bl11X_FjSTKd4OuiY_t8g/exec',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }
+      );
 
-} catch {
-  setSubmitError('কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
-} finally {
-  setSubmitting(false);
-}
+      window.fbq?.('track', 'Lead', {
+        value: totalPrice,
+        currency: 'BDT'
+      }, {
+        eventID: eventId
+      });
+
+      setSubmitted(true);
+    } catch {
+      setSubmitError('কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const onConfirmOrder = () => {
+    setShowConfirmModal(false);
+    handleDirectSubmit();
   };
 
   return (
@@ -729,6 +776,9 @@ export default function App() {
                 onFieldChange={handleFieldChange}
                 onQuantityChange={setQuantity}
                 handleSubmit={handleSubmit}
+                showConfirmModal={showConfirmModal}
+                setShowConfirmModal={setShowConfirmModal}
+                onConfirmOrder={onConfirmOrder}
               />
             </div>
           </div>
